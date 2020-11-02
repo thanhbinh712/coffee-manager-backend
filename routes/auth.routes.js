@@ -2,6 +2,7 @@ const { verifySignUp, authJwt, verifyCreateProduct} = require("../middleware");
 const controller = require("../controller/auth.controller");
 const productController = require("../controller/product.controller");
 const typeController = require("../controller/type.controller");
+const upload = require("../config/multer.config");
 module.exports = function (app) {
     app.use(function (req, res, next) {
       res.header(
@@ -29,7 +30,7 @@ module.exports = function (app) {
   );
  app.post(
   "/api/product",
-  [authJwt.verifyToken],
+  upload.array("image", 1),
   productController.createProduct
 );
 app.get(
@@ -41,4 +42,5 @@ app.post(
 [authJwt.verifyToken],
 typeController.createType
 );
+
 };

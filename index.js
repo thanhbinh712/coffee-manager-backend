@@ -6,6 +6,7 @@ require('./models/index')
 app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
+app.use('/image', express.static(__dirname + "/publics"));
 app.all("/*", function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
