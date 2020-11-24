@@ -88,3 +88,85 @@ exports.signup = (req, res) => {
     }
    
   }
+
+  exports.createUser = async (req, res) => {
+    // Save Product to Database
+    let {
+      email,
+      password,
+      name,
+      gender,
+      phone,
+      address,
+      roles_role_code
+     } = req.body;
+  
+    try {
+      let user = await Users.create({
+        email,
+        password,
+        name,
+        gender,
+        phone,
+        address,
+        roles_role_code
+      });
+      if (user) {
+        res.status(200).send(user);
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+
+  exports.updateUser = async (req, res) => {
+    let {  
+      email,
+      password,
+      name,
+      gender,
+      phone,
+      address,
+      roles_role_code } = req.body;
+  
+    try {
+      let user = await Users.update(
+        {
+          password,
+          name,
+          gender,
+          phone,
+          address,
+          roles_role_code
+        },
+        {
+          where: {
+            email: email,
+          },
+        }
+      );
+      if (user) {
+        res.status(200).send(user);
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+  
+  exports.deleteUser = async (req, res) => {
+    let { id } = req.body;
+  
+    try {
+      let user = await Users.destroy({
+        where: {
+          id: id,
+        },
+      });
+     
+        res.status(200).send("success");
+    
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+

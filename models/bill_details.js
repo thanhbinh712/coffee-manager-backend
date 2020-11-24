@@ -1,5 +1,5 @@
 // const { Sequelize } = require("sequelize");
-var Import_details = sequelize.define(
+var Bill_details = sequelize.define(
     "import_details",
     {
       id: {
@@ -8,16 +8,6 @@ var Import_details = sequelize.define(
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
-      },
-      bill_code: {
-        type: Sequelize.BIGINT,
-        field: "bill_code",
-        allowNull: false,
-      },
-      product_details_id: {
-        type: Sequelize.STRING(45),
-        field: "product_details_id",
-        allowNull: true,
       },
       number: {
         type: Sequelize.BIGINT,
@@ -45,5 +35,5 @@ var Import_details = sequelize.define(
       indexes: [],
     }
   );
-  module.exports = Import_details;
+  module.exports = Bill_details;
   

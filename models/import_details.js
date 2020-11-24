@@ -9,21 +9,6 @@ var Import_details = sequelize.define(
         autoIncrement: true,
         allowNull: false,
       },
-      import_code: {
-        type: Sequelize.STRING(45),
-        field: "product_code",
-        allowNull: false,
-      },
-      ingredient_code: {
-        type: Sequelize.STRING(45),
-        field: "ingredient_code",
-        allowNull: true,
-      },
-      number: {
-        type: Sequelize.BIGINT,
-        field: "number",
-        allowNull: true,
-      },
       price_unit: {
         type: Sequelize.BIGINT,
         field: "price_unit",

@@ -1,4 +1,4 @@
-// const { Sequelize } = require("sequelize");
+const { Sequelize } = require("sequelize");
 var Tables = sequelize.define(
     "tables",
     {

@@ -23,6 +23,45 @@ exports.createType = async (req, res) => {
   }
 };
 
+exports.updateType = async (req, res) => {
+  let { type_code, name } = req.body;
+
+  try {
+    let type = await Types.update(
+      {
+        name,
+      },
+      {
+        where: {
+          type_code: type_code,
+        },
+      }
+    );
+    if (type) {
+      res.status(200).send(type);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.deleteType = async (req, res) => {
+  let { type_code } = req.body;
+
+  try {
+    let type = await Types.destroy({
+      where: {
+        type_code: type_code,
+      },
+    });
+   
+      res.status(200).send("success");
+  
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 exports.getTypes = async (req, res) => {
   try {
     let result = await Types.findAll({

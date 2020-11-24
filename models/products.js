@@ -14,11 +14,6 @@ var Products = sequelize.define(
         field: "name",
         allowNull: true,
       },
-      price: {
-        type: Sequelize.BIGINT,
-        field: "price",
-        allowNull: true,
-      },
       description: {
         type: Sequelize.STRING(255),
         field: "description",
@@ -27,6 +22,11 @@ var Products = sequelize.define(
       image: {
         type: Sequelize.STRING(255),
         field: "image",
+        allowNull: true,
+      },
+      price: {
+        type: Sequelize.BIGINT,
+        field: "price",
         allowNull: true,
       },
       createdAt: {

@@ -9,13 +9,6 @@ var Orders = sequelize.define(
       autoIncrement: true,
       allowNull: false,
     },
-    product_details_id: {
-      type: Sequelize.BIGINT,
-      field: "product_details_id",
-      primaryKey: true,
-      autoIncrement: false,
-      allowNull: false,
-    },
     number: {
       type: Sequelize.BIGINT,
       field: "number",

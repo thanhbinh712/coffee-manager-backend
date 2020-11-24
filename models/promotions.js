@@ -14,6 +14,16 @@ var Promotions = sequelize.define(
         field: "name",
         allowNull: true,
       },
+      start_date: {
+        type: Sequelize.DATE,
+        field: "start_date",
+        allowNull: true,
+      },
+      finish_date: {
+        type: Sequelize.DATE,
+        field: "finish_date",
+        allowNull: true,
+      },
       status: {
         type: Sequelize.BIGINT,
         field: "status",

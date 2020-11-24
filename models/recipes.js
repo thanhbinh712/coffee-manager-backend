@@ -9,16 +9,6 @@ var Recipes = sequelize.define(
           autoIncrement: false,
           allowNull: false,
         },
-      product_details_id: {
-        type: Sequelize.BIGINT,
-        field: "product_details_id",
-        allowNull: true,
-      },
-      ingredient_code: {
-        type: Sequelize.STRING(45),
-        field: "ingredient_code",
-        allowNull: true,
-      },
       quantity: {
         type: Sequelize.BIGINT,
         field: "quantity",
