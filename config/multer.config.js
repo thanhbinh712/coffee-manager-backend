@@ -7,12 +7,15 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, PATH_STORAGE_IMAGE);
     },
+    // filename: function (req, file, cb) {
+    //     // console.log(req.headers['user-id']);
+    //     // console.log(req);
+    //     //cb(null, `${imageName[i]}_${file.originalname}`);
+    //     cb(null, `${file.originalname}`);
+    // } 
     filename: function (req, file, cb) {
-        console.log(req.headers['user-id']);
-        console.log(req);
-        //cb(null, `${imageName[i]}_${file.originalname}`);
-        cb(null, `${file.originalname}`);
-    } 
+      cb(null, `${Date.now()}_${file.originalname}`)
+  }
   });
 let fileFilter = (req, file ,cb) =>{
   

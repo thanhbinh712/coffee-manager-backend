@@ -3,14 +3,12 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 var moment = require("moment");
 const Op = Sequelize.Op;
-const Tables = require("../models/tables");
 exports.createTable = async (req, res) => {
   // Save Product to Database
   let {
     table_code,
     name,
     seat_number,
-    status,
     areas_area_code,
   } = req.body;
 
@@ -19,7 +17,7 @@ exports.createTable = async (req, res) => {
         table_code,
         name,
         seat_number,
-        status,
+        status: 0,
         areas_area_code,
     });
     if (table) {
@@ -119,4 +117,26 @@ exports.getTables = (req, res) => {
     });
 };
 
+exports.getTablesAreas = async (req, res) => {
+  let { areas_area_code } = req.query;
+  try {
+    let where={
+      areas_area_code: areas_area_code,
+   }
+   if(!areas_area_code){delete where.areas_area_code}
+    let result = await Tables.findAll({
+      attributes: ["table_code", "name","seat_number","status","areas_area_code"],
+      include: [
+        {
+          model: Areas,
+          as: "detail_area",
+        },
+      ],
+      where: where
+    });
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 

@@ -81,7 +81,7 @@ exports.deleteIngredient = async (req, res) => {
     }
   };
 
-exports.getIngredients = (req, res) => {
+exports.getIngredients = async (req, res) => {
   let { page, perPage, createdAt, name } = req.query;
   let where = {
     createdAt: {
@@ -98,19 +98,20 @@ exports.getIngredients = (req, res) => {
   {
     delete where.name;
   }
-  Ingredients.findAndCountAll({
-    limit: perPage ? parseInt(perPage) : 10,
-    offset: page ? parseInt(page - 1) * parseInt(perPage) : 0,
-    distinct: true,
-    attributes: ["ingredient_code", "name", "unit", "quantity", "warning_limited", "inventory"],
-  })
-    .then((result) =>
-      res.json({
+  try{
+      let result = await Ingredients.findAndCountAll({
+      limit: perPage ? parseInt(perPage) : 10,
+      offset: page ? parseInt(page - 1) * parseInt(perPage) : 0,
+      distinct: true,
+      attributes: ["ingredient_code", "name", "unit", "quantity", "warning_limited", "inventory"],
+      where: where,
+    });
+    res.json({
         total: result.count,
         data: result.rows,
-      })
-    )
-    .catch((err) => {
+        })
+      }
+    catch(err) {
       res.status(500).send("Internal server " + err);
-    });
+    }
 };

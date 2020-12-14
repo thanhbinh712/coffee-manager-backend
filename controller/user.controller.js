@@ -25,7 +25,8 @@ const Roles = require("../models/roles");
         gender,
         phone,
         address,
-        roles_role_code
+        roles_role_code,
+        deleted: 0
       });
       if (user) {
         res.status(200).send(user);
@@ -63,30 +64,17 @@ const Roles = require("../models/roles");
           },
         }
       );
-      if (user) {
-        res.status(200).send(user);
-      }
+      let result=await Staffs.findOne({
+        attributes:["id", "email", "name", "gender", "phone", "address", "roles_role_code"],
+        where: {
+          id:id
+        }
+      })
+      res.status(200).send(result);
     } catch (error) {
       res.status(500).send(error);
     }
   };
-  
-//   exports.deleteUser = async (req, res) => {
-//     let { id } = req.body;
-  
-//     try {
-//       let user = await Users.destroy({
-//         where: {
-//           id: id,
-//         },
-//       });
-     
-//         res.status(200).send("success");
-    
-//     } catch (error) {
-//       res.status(500).send(error);
-//     }
-//   };
 
 exports.deleteStaff = async (req, res) => {
     let { roles_role_code, status_delete } = req.body;

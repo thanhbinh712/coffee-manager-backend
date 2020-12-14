@@ -10,6 +10,7 @@ exports.createPromotion = async (req, res) => {
     start_date,
     finish_date,
     status,
+    listProducts
   } = req.body;
 
   try {
@@ -20,9 +21,19 @@ exports.createPromotion = async (req, res) => {
         name,
         status,
     });
-    if (promotion) {
-      res.status(200).send(promotion);
+    let temp=[];
+    for(let i=0; i<listProducts.length; i++) {
+      temp.push({
+        promotions_promotion_code:promotion.promotion_code,
+        products_product_code:listProducts[i].products_product_code,
+        percent:parseInt(listProducts[i].percent),
+      })
     }
+    console.log(temp)
+     let result=await Promotion_details.bulkCreate([...temp])
+    // if (imports) {
+      res.status(200).send(result);
+    // }
   } catch (error) {
     res.status(500).send(error);
   }

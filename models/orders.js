@@ -2,9 +2,9 @@
 var Orders = sequelize.define(
   "orders",
   {
-    table_code: {
-      type: Sequelize.STRING(45),
-      field: "table_code",
+    order_id: {
+      type: Sequelize.BIGINT,
+      field: "order_id",
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
@@ -12,6 +12,11 @@ var Orders = sequelize.define(
     number: {
       type: Sequelize.BIGINT,
       field: "number",
+      allowNull: true,
+    },
+    paid: {
+      type: Sequelize.BIGINT,
+      field: "paid",
       allowNull: true,
     },
     createdAt: {

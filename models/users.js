@@ -39,6 +39,11 @@ var Users = sequelize.define(
       field: "address",
       allowNull: true,
     },
+    deleted: {
+      type: Sequelize.BOOLEAN,
+      field: "deleted",
+      allowNull: true,
+    },
     createdAt: {
       type: Sequelize.DATE,
       field: "createdAt",

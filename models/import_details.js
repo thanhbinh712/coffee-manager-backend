@@ -14,6 +14,11 @@ var Import_details = sequelize.define(
         field: "price_unit",
         allowNull: true,
       },
+      number: {
+        type: Sequelize.BIGINT,
+        field: "number",
+        allowNull: true,
+      },
       createdAt: {
         type: Sequelize.DATE,
         field: "createdAt",

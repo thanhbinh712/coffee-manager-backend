@@ -11,6 +11,7 @@ const orderController = require("../controller/order.controller");
 const billController = require("../controller/bill.controller");
 const staffController = require("../controller/user.controller");
 const roleController = require("../controller/role.controller");
+const importDetailsController = require("../controller/importdetails.controller");
 
 const upload = require("../config/multer.config");
 module.exports = function (app) {
@@ -21,6 +22,8 @@ module.exports = function (app) {
       );
       next();
     });
+
+    //user
     app.get(
       "/api/auth/users",
       controller.getUsers,
@@ -34,29 +37,23 @@ module.exports = function (app) {
     [authJwt.verifyToken, verifySignUp.checkDuplicateUsernameOrEmail],
     controller.signup
   );
-  app.get(
-    "/api/auth/get_user",
-    staffController.getStaffs,
-  );
   app.post(
     "/api/auth/login",
     controller.login
   );
-  app.post(
-    "/api/auth/create_user",
-    [authJwt.verifyToken],
-    staffController.createStaffs
-  );
+
   app.put(
-    "/api/auth/update_user",
+    "/api/auth/users",
     [authJwt.verifyToken],
-    staffController.updateStaff
+    controller.updateUser
   );
+  
   app.put(
     "/api/auth/delete_user",
     [authJwt.verifyToken],
-    staffController.deleteStaff
+    controller.deleteUser
   );
+
   app.get(
     "/api/product",
     productController.getProducts
@@ -66,11 +63,16 @@ module.exports = function (app) {
   upload.array("image", 1),
   productController.createProduct
 );
-app.put(
-    "/api/product",
+app.post(
+    "/api/update_product",
     upload.array("image", 1),
     productController.updateProduct
   );
+
+app.get(
+  "/api/type/product",
+  productController.getProductsType
+);
   app.delete(
     "/api/product",
     productController.deleteProduct
@@ -151,6 +153,11 @@ app.put(
     [authJwt.verifyToken],
     tableController.deleteTable
   );
+ app.get(
+   "/api/area/table",
+   tableController.getTablesAreas
+ );
+
 app.post(
   "/api/promotion",
   [authJwt.verifyToken],
@@ -160,4 +167,40 @@ app.get(
   "/api/promotion",
   promotionController.getPromotions
 );
+
+app.get(
+  "/api/get_import",
+  importController.getImports
+)
+app.post(
+  "/api/auth/create_import",
+  [authJwt.verifyToken],
+  importController.createImport
+)
+
+app.get(
+  "/api/get_import_details",
+  importDetailsController.getImportDetails
+)
+app.post(
+  "/api/auth/create_import_detail",
+  [authJwt.verifyToken],
+  importDetailsController.createImportDetails
+)
+
+app.post(
+  "/api/create_order",
+  orderController.createOrder
+)
+
+app.get(
+  "/api/get_order",
+  orderController.getOrder
+)
+
+app.get(
+  "/api/get_import_details",
+  importDetailsController.getImportDetails
+)
+
 };

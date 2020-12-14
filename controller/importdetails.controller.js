@@ -74,9 +74,27 @@ exports.deleteImportDetails = async (req, res) => {
 };
 
 exports.getImportDetails = async (req, res) => {
+  let {imports_import_code} = req.query;
+  let where = {
+    imports_import_code: imports_import_code
+  }
+  if(!imports_import_code) {
+    delete where.imports_import_code;
+  }
   try {
     let result = await ImportDetails.findAll({
-      attributes: ["id"],
+      attributes: ["id", "imports_import_code", "ingredients_ingredient_code", "number", "price_unit"],
+      include: [
+        {
+          model: Imports,
+          as: "detail_import_product",
+        },
+        {
+          model: Ingredients,
+          as: "detail_import_ingredient",
+        },
+      ],
+      where: where,
     });
     res.status(200).send(result);
   } catch (error) {
